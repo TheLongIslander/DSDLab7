@@ -1,0 +1,73 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/adity/OneDrive/Desktop/Lab7/simulation/qsim
+vhard_block
+Z1 !s110 1731539719
+!i10b 1
+!s100 1j0SH@IZaEjmLM_O;2Rmj0
+IZc537RUKcGdJ<NH09ni2]3
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+R0
+Z3 w1731539718
+Z4 8Lab7.vo
+Z5 FLab7.vo
+L0 6978
+Z6 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z7 !s108 1731539719.000000
+Z8 !s107 Lab7.vo|
+Z9 !s90 -work|work|Lab7.vo|
+!i113 1
+Z10 o-work work
+Z11 tCvgOpt 0
+vtop
+R1
+!i10b 1
+!s100 Sa5bIKobOAHBlW<_e0EJ?1
+IJ6WN8d_h7KnJ_?Y]T@^0I2
+R2
+R0
+R3
+R4
+R5
+L0 32
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+R11
+vtop_vlg_vec_tst
+R1
+!i10b 1
+!s100 Fkio7Fd2?z5nRP;h0;3C00
+ITz^m1BObIhLEDhIgM013Y0
+R2
+R0
+w1731539717
+8waveform_top.vwf.vt
+Fwaveform_top.vwf.vt
+L0 30
+R6
+r1
+!s85 0
+31
+R7
+!s107 waveform_top.vwf.vt|
+!s90 -work|work|waveform_top.vwf.vt|
+!i113 1
+R10
+R11

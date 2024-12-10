@@ -1,0 +1,79 @@
+ module top(
+input logic clk, rst,
+input logic[1:0] sw, //address for instruction memory
+output logic[31:0] ALUResult, //output for pre-lab simulation
+output logic[31:0] RD1, RD2, //output for pre-lab simulation
+output logic[31:0] prode_register_file, //output for pre-lab simulation
+output logic[31:0] prode_data_mem,
+output logic[6:0] display_led //output for in-lab
+);
+ 
+logic[31:0] inst_0 = 32'b0;
+logic[31:0] inst_1 = 32'b100100_01000_00010_00001_0000_0000_000;  
+//add rf_regs[5] and rf_regs[4] to rf_regs[1];
+logic[31:0] inst_2 = 32'b101100_01000_00011_00001_0000_0000_000;  
+//sub rf_regs[10] - rf_regs[8] to rf_regs[1];
+logic[31:0] inst_ex;
+assign inst_ex = (sw==1)? inst_1:(sw==2)? inst_2: inst_0;
+ 
+logic [31:0] SignImm, MemtoReg_out, ALUSrc_out, DataMem_out;
+logic [4:0] RegDst_out;
+ 
+ 
+register_file r_f(.clk(clk),.rst(rst),
+.A1(inst_ex[25:21]),.A2(inst_ex[20:16]),.A3(inst_ex[15:11]),
+.WD3(ALUResult),
+.WE3(1),
+.RD1(RD1),
+.RD2(RD2),
+.prode(prode_register_file)
+);
+ 
+ 
+ALU t1(
+.SrcA(RD1),
+.SrcB(RD2),
+.ALUControl(inst_ex[29:27]),
+.ALUResult(ALUResult)
+);
+ 
+data_memory d_mem(
+.clk(clk),
+.rst(rst),
+.A(ALUResult),
+.WD(RD2),
+.WE(inst_ex[31:26] == 6'b010100),
+.RD(DataMem_out),
+.prode(prode_data_mem)
+);
+ 
+sign_extend s_extend(
+.Imm(inst_ex[15:0]),
+.SignImm(SignImm)
+);
+ 
+MUX_RegDst mux_regdst(
+.RegDst(inst_ex[31:26]==6'b010101),
+.rt(inst_ex[20:16]),
+.rd(inst_ex[15:11]),
+.RegDst_out(RegDst_out)
+);
+ 
+MUX_ALUSrc mux_alusrc(
+.ALUSrc(1'b1),
+.RD2(RD2),
+.SignImm(SignImm),
+.ALUSrc_out(ALUSrc_out)
+);
+ 
+MUX_MemtoReg mux_memtoreg(
+.MemtoReg(inst_ex[31:26] == 6'b010101),
+.ALUResult(ALUResult),
+.RD(DataMem_out),
+.MemtoReg_out(MemtoReg_out)
+);
+ 
+display t2(.data_in(prode_register_file),  
+.segments(display_led));
+ 
+endmodule
